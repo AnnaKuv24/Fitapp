@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitApp — Профіль</title>
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/profile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="10" fill="#6366f1"/>
+          <path d="M8 16h3l2-6 3 12 2-8 2 4h4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>FitApp</span>
+      </div>
+      <button class="sidebar__close" id="sidebarClose">&#x2715;</button>
+    </div>
+    <nav class="sidebar__nav">
+      <a href="dashboard.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Головна</span>
+      </a>
+      <a href="workout.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><path d="M6 4v16M18 4v16M6 12h12M3 8h3M18 8h3M3 16h3M18 16h3"/></svg>
+        <span>Тренування</span>
+      </a>
+      <a href="exercises.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <span>Вправи</span>
+      </a>
+      <a href="progress.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Прогрес</span>
+      </a>
+      <a href="profile.html" class="nav-item active">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span>Профіль</span>
+      </a>
+    </nav>
+    <div class="sidebar__bottom">
+      <button class="theme-toggle" id="themeToggle" type="button">
+        <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+        <span class="theme-toggle__label">Світла тема</span>
+      </button>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" width="18"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/></svg>
+        Вийти
+      </button>
+    </div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <button class="topbar__burger" id="burgerBtn"><span></span><span></span><span></span></button>
+      <div class="topbar__title"><h1>Профіль</h1></div>
+    </header>
+
+    <main class="content">
+      <div class="profile-grid">
+        <!-- Profile card -->
+        <section class="card profile-card">
+          <div class="profile-card__header">
+            <div class="avatar profile-card__avatar" id="profileAvatar">А</div>
+            <div>
+              <div class="profile-card__name" id="profileName">—</div>
+              <div class="profile-card__email" id="profileEmail">—</div>
+            </div>
+          </div>
+          <div class="profile-card__badges">
+            <span class="subscription-badge" id="profileSubBadge">FREE</span>
+            <span class="level-badge" id="profileGoalBadge">—</span>
+          </div>
+          <div class="profile-card__sub" id="subscriptionActions"></div>
+        </section>
+
+        <!-- Edit form -->
+        <section class="card">
+          <div class="card__header">
+            <h2 class="card__title">Особисті дані</h2>
+          </div>
+          <form class="auth-form" id="profileForm">
+            <div class="form-group">
+              <label class="form-label" for="pfName">Ім'я</label>
+              <input type="text" id="pfName" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pfEmail">Email</label>
+              <input type="email" id="pfEmail" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pfGoal">Мета</label>
+              <select id="pfGoal" class="form-input form-select">
+                <option value="WEIGHT_LOSS">Схуднення</option>
+                <option value="MUSCLE_GAIN">Набір м'язів</option>
+                <option value="MAINTENANCE">Підтримка форми</option>
+              </select>
+            </div>
+            <div id="profileFormMsg"></div>
+            <button type="submit" class="btn btn--primary btn--full" id="profileSaveBtn">
+              Зберегти зміни
+            </button>
+          </form>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Payment modal -->
+  <div class="payment-overlay hidden" id="paymentModal">
+    <div class="payment-modal">
+      <h2>Оформлення підписки PREMIUM</h2>
+      <p class="payment-modal__price">⭐ 199 грн / місяць</p>
+      <form id="paymentForm">
+        <div class="form-group">
+          <label class="form-label" for="payCardName">Ім'я власника картки</label>
+          <input type="text" id="payCardName" class="form-input" placeholder="IVAN PETRENKO" autocomplete="cc-name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="payCardNumber">Номер картки</label>
+          <input type="text" id="payCardNumber" class="form-input" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" autocomplete="cc-number" required>
+        </div>
+        <div class="payment-modal__row">
+          <div class="form-group">
+            <label class="form-label" for="payExpiry">Термін дії (ММ/РР)</label>
+            <input type="text" id="payExpiry" class="form-input" placeholder="12/27" maxlength="5" autocomplete="cc-exp" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="payCvv">CVV</label>
+            <input type="text" id="payCvv" class="form-input" placeholder="123" inputmode="numeric" maxlength="3" autocomplete="cc-csc" required>
+          </div>
+        </div>
+        <div id="paymentFormMsg"></div>
+        <div class="payment-modal__actions">
+          <button type="button" class="btn btn--ghost" id="paymentCancelBtn">Скасувати</button>
+          <button type="submit" class="btn btn--primary" id="paymentSubmitBtn">Сплатити й активувати</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/profile.js"></script>
+</body>
+</html>

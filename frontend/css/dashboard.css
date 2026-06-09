@@ -1,0 +1,60 @@
+/* dashboard.css */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Plan cards */
+.plan-item {
+  display: flex; align-items: center; gap: .85rem;
+  padding: .85rem; border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  cursor: pointer; transition: all var(--transition);
+  text-decoration: none; color: inherit;
+}
+.plan-item:hover { border-color: var(--primary); background: var(--primary-bg); transform: translateX(4px); }
+.plan-item__icon {
+  width: 44px; height: 44px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+.plan-item__body { flex: 1; }
+.plan-item__name { font-weight: 600; font-size: .9rem; }
+.plan-item__meta { font-size: .78rem; color: var(--muted); margin-top: .1rem; }
+.plan-item__arrow { color: var(--gray-300); transition: color var(--transition); }
+.plan-item:hover .plan-item__arrow { color: var(--primary); }
+.plan-list { display: flex; flex-direction: column; gap: .6rem; }
+
+/* Recent workouts */
+.recent-item {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .75rem 0;
+  border-bottom: 1px solid var(--gray-100);
+}
+.recent-item:last-child { border-bottom: none; }
+.recent-item__date {
+  width: 44px; height: 44px; border-radius: var(--radius-sm);
+  background: var(--gray-100); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+.recent-item__day { font-size: .65rem; color: var(--muted); font-weight: 600; text-transform: uppercase; }
+.recent-item__num { font-size: 1.1rem; font-weight: 800; line-height: 1; }
+.recent-item__body { flex: 1; }
+.recent-item__name { font-weight: 600; font-size: .875rem; }
+.recent-item__stats { font-size: .78rem; color: var(--muted); margin-top: .1rem; }
+.recent-item__vol { font-weight: 700; color: var(--primary); font-size: .9rem; }
+
+/* Level badge */
+.level-badge {
+  display: inline-block; padding: .15rem .55rem; border-radius: 20px;
+  font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+}
+.level-badge--beginner { background: #d1fae5; color: #059669; }
+.level-badge--intermediate { background: #fef3c7; color: #d97706; }
+.level-badge--advanced { background: #fee2e2; color: #dc2626; }
+
+@media (max-width: 768px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}

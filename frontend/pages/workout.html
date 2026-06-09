@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitApp — Тренування</title>
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/workout.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Plan selection screen -->
+  <div id="planScreen">
+    <header class="workout-header">
+      <a href="dashboard.html" class="btn-back">
+        <svg viewBox="0 0 24 24" width="20"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
+      <h1>Оберіть програму</h1>
+    </header>
+    <div class="plan-select-grid" id="planSelectGrid">
+      <div class="skeleton" style="height:160px;border-radius:16px"></div>
+      <div class="skeleton" style="height:160px;border-radius:16px"></div>
+      <div class="skeleton" style="height:160px;border-radius:16px"></div>
+    </div>
+  </div>
+
+  <!-- Active workout screen -->
+  <div id="workoutScreen" class="hidden">
+    <!-- Progress bar -->
+    <div class="workout-progress-bar">
+      <div class="workout-progress-fill" id="progressFill"></div>
+    </div>
+
+    <header class="workout-header">
+      <button class="btn-back" id="abortBtn">
+        <svg viewBox="0 0 24 24" width="20"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="workout-meta">
+        <span id="workoutPlanName">Тренування</span>
+        <span class="workout-timer-top" id="workoutTimer">00:00</span>
+      </div>
+      <span class="exercise-counter" id="exCounter">1 / 5</span>
+    </header>
+
+    <main class="workout-main">
+      <!-- Exercise card -->
+      <div class="exercise-hero">
+        <div class="exercise-image-wrap">
+          <img id="exerciseImg" src="" alt="" onerror="this.style.display='none'">
+          <div class="exercise-muscle-badge" id="muscleBadge">Груди</div>
+        </div>
+        <div class="exercise-info">
+          <h2 id="exerciseName">Жим лежачи</h2>
+          <p id="exerciseDesc" class="exercise-desc"></p>
+          <div class="exercise-params">
+            <div class="param"><span class="param__val" id="paramSets">4</span><span class="param__lbl">підходи</span></div>
+            <div class="param"><span class="param__val" id="paramReps">10</span><span class="param__lbl">повтори</span></div>
+            <div class="param"><span class="param__val" id="paramRest">90с</span><span class="param__lbl">відпочинок</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sets log -->
+      <div class="sets-section">
+        <div class="sets-header">
+          <span>Підхід</span><span id="setsColPrev">Попер. вага</span><span id="setsColMain">Вага (кг)</span><span id="setsColExtra">Повтори</span><span></span>
+        </div>
+        <div id="setsContainer"></div>
+      </div>
+
+      <!-- Input row -->
+      <div class="input-row" id="inputRow">
+        <div class="input-group" id="weightInputGroup">
+          <button class="qty-btn" data-field="weight" data-dir="-1">−</button>
+          <div class="qty-display">
+            <input type="number" id="weightInput" class="qty-input" value="20" min="0" step="2.5">
+            <span class="qty-unit">кг</span>
+          </div>
+          <button class="qty-btn" data-field="weight" data-dir="1">+</button>
+        </div>
+        <div class="input-group" id="repsInputGroup">
+          <button class="qty-btn" data-field="reps" data-dir="-1">−</button>
+          <div class="qty-display">
+            <input type="number" id="repsInput" class="qty-input" value="10" min="1" step="1">
+            <span class="qty-unit">повт.</span>
+          </div>
+          <button class="qty-btn" data-field="reps" data-dir="1">+</button>
+        </div>
+      </div>
+
+      <!-- Timer set block (for static/isometric exercises like plank) -->
+      <div class="timer-set-block hidden" id="timerSetBlock">
+        <div class="timer-set-display" id="timerSetDisplay">00:00</div>
+        <div class="timer-set-hint" id="timerSetHint">Натисніть «Старт» і утримуйте положення</div>
+      </div>
+
+      <button class="btn-log-set" id="logSetBtn">
+        <svg viewBox="0 0 24 24" width="20"><polyline points="20 6 9 17 4 12"/></svg>
+        <span id="logSetBtnText">Підхід виконано</span>
+      </button>
+    </main>
+  </div>
+
+  <!-- Rest timer overlay -->
+  <div class="timer-overlay hidden" id="timerOverlay">
+    <div class="timer-card">
+      <p class="timer-label">Відпочинок</p>
+      <div class="timer-circle">
+        <svg class="timer-svg" viewBox="0 0 120 120">
+          <circle class="timer-track" cx="60" cy="60" r="52"/>
+          <circle class="timer-fill" cx="60" cy="60" r="52" id="timerCircle"/>
+        </svg>
+        <span class="timer-count" id="timerCount">90</span>
+      </div>
+      <button class="btn btn--ghost" id="skipTimerBtn">Пропустити →</button>
+    </div>
+  </div>
+
+  <!-- PR popup -->
+  <div class="pr-popup hidden" id="prPopup">
+    <div class="pr-popup__inner">
+      <div class="pr-popup__emoji">🏆</div>
+      <h3>Новий рекорд!</h3>
+      <p id="prText"></p>
+      <button class="btn btn--primary" id="prClose">Чудово!</button>
+    </div>
+  </div>
+
+  <!-- Summary modal -->
+  <div class="modal-overlay hidden" id="summaryOverlay">
+    <div class="summary-modal">
+      <div class="summary-header">
+        <div class="summary-emoji">🎉</div>
+        <h2>Тренування завершено!</h2>
+      </div>
+      <div class="summary-stats">
+        <div class="summary-stat"><span class="summary-stat__val" id="sumDuration">—</span><span class="summary-stat__lbl">хвилин</span></div>
+        <div class="summary-stat"><span class="summary-stat__val" id="sumVolume">—</span><span class="summary-stat__lbl">кг тоннаж</span></div>
+        <div class="summary-stat"><span class="summary-stat__val" id="sumSets">—</span><span class="summary-stat__lbl">підходів</span></div>
+      </div>
+      <div class="summary-actions">
+        <a href="progress.html" class="btn btn--ghost">Переглянути прогрес</a>
+        <a href="dashboard.html" class="btn btn--primary">На головну</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/workout.js"></script>
+</body>
+</html>

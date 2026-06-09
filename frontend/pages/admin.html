@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitApp — Адмін-панель</title>
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="10" fill="#6366f1"/>
+          <path d="M8 16h3l2-6 3 12 2-8 2 4h4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>FitApp</span>
+      </div>
+      <button class="sidebar__close" id="sidebarClose">&#x2715;</button>
+    </div>
+    <nav class="sidebar__nav">
+      <a href="dashboard.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Головна</span>
+      </a>
+      <a href="workout.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><path d="M6 4v16M18 4v16M6 12h12M3 8h3M18 8h3M3 16h3M18 16h3"/></svg>
+        <span>Тренування</span>
+      </a>
+      <a href="exercises.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <span>Вправи</span>
+      </a>
+      <a href="progress.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Прогрес</span>
+      </a>
+      <a href="profile.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span>Профіль</span>
+      </a>
+      <a href="admin.html" class="nav-item active">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>
+        <span>Адмін-панель</span>
+      </a>
+    </nav>
+    <div class="sidebar__bottom">
+      <button class="theme-toggle" id="themeToggle" type="button">
+        <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+        <span class="theme-toggle__label">Світла тема</span>
+      </button>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" width="18"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/></svg>
+        Вийти
+      </button>
+    </div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <button class="topbar__burger" id="burgerBtn"><span></span><span></span><span></span></button>
+      <div class="topbar__title"><h1>Адмін-панель</h1></div>
+    </header>
+
+    <main class="content">
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="exercises">Вправи</button>
+        <button class="admin-tab" data-tab="plans">Програми тренувань</button>
+      </div>
+
+      <!-- Exercises tab -->
+      <section class="card admin-panel" id="tabExercises">
+        <div class="card__header">
+          <h2 class="card__title">Вправи</h2>
+          <button class="btn btn--primary btn--sm" id="addExerciseBtn">+ Додати вправу</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Назва</th><th>Група м'язів</th><th>Опис</th><th></th></tr></thead>
+            <tbody id="adminExercisesBody">
+              <tr><td colspan="4" class="table-empty">Завантаження...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Plans tab -->
+      <section class="card admin-panel hidden" id="tabPlans">
+        <div class="card__header">
+          <h2 class="card__title">Програми тренувань</h2>
+          <button class="btn btn--primary btn--sm" id="addPlanBtn">+ Додати програму</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Назва</th><th>Рівень</th><th>Мета</th><th>Опис</th><th></th></tr></thead>
+            <tbody id="adminPlansBody">
+              <tr><td colspan="5" class="table-empty">Завантаження...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Exercise modal -->
+  <div class="modal-overlay hidden" id="exerciseModal">
+    <div class="admin-modal">
+      <h2 id="exerciseModalTitle">Нова вправа</h2>
+      <form id="exerciseForm">
+        <input type="hidden" id="exId">
+        <div class="form-group">
+          <label class="form-label" for="exName">Назва</label>
+          <input type="text" id="exName" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="exMuscle">Група м'язів</label>
+          <input type="text" id="exMuscle" class="form-input" placeholder="Напр. Груди">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="exDesc">Опис</label>
+          <textarea id="exDesc" class="form-input" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="exImage">URL зображення</label>
+          <input type="text" id="exImage" class="form-input" placeholder="https://...">
+        </div>
+        <div id="exerciseFormMsg"></div>
+        <div class="admin-modal__actions">
+          <button type="button" class="btn btn--ghost" id="exerciseCancelBtn">Скасувати</button>
+          <button type="submit" class="btn btn--primary" id="exerciseSaveBtn">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Plan modal -->
+  <div class="modal-overlay hidden" id="planModal">
+    <div class="admin-modal">
+      <h2 id="planModalTitle">Нова програма</h2>
+      <form id="planForm">
+        <input type="hidden" id="plId">
+        <div class="form-group">
+          <label class="form-label" for="plName">Назва</label>
+          <input type="text" id="plName" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="plLevel">Рівень</label>
+          <select id="plLevel" class="form-input form-select">
+            <option value="BEGINNER">Початківець</option>
+            <option value="INTERMEDIATE">Середній</option>
+            <option value="ADVANCED">Просунутий</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="plGoal">Мета</label>
+          <select id="plGoal" class="form-input form-select">
+            <option value="WEIGHT_LOSS">Схуднення</option>
+            <option value="MUSCLE_GAIN">Набір м'язів</option>
+            <option value="MAINTENANCE">Підтримка форми</option>
+            <option value="ENDURANCE">Витривалість</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="plEmoji">Емодзі</label>
+          <input type="text" id="plEmoji" class="form-input" placeholder="💪" maxlength="4">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="plDesc">Опис</label>
+          <textarea id="plDesc" class="form-input" rows="3"></textarea>
+        </div>
+        <div id="planFormMsg"></div>
+        <div class="admin-modal__actions">
+          <button type="button" class="btn btn--ghost" id="planCancelBtn">Скасувати</button>
+          <button type="submit" class="btn btn--primary" id="planSaveBtn">Зберегти</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

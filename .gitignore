@@ -1,0 +1,31 @@
+# ── Maven / Java ──────────────────────────────────────────────────────────────
+backend/target/
+*.class
+*.jar
+*.war
+hs_err_pid*
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+Thumbs.db
+.DS_Store
+
+# ── Secrets / local env overrides ────────────────────────────────────────────
+.env
+*.env.local
+application-local.properties
+.claude/
+node_module/
+dist/
+build/

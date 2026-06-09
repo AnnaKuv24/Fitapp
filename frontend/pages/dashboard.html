@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitApp — Dashboard</title>
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="10" fill="#6366f1"/>
+          <path d="M8 16h3l2-6 3 12 2-8 2 4h4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>FitApp</span>
+      </div>
+      <button class="sidebar__close" id="sidebarClose">&#x2715;</button>
+    </div>
+    <nav class="sidebar__nav">
+      <a href="dashboard.html" class="nav-item active">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Головна</span>
+      </a>
+      <a href="workout.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><path d="M6 4v16M18 4v16M6 12h12M3 8h3M18 8h3M3 16h3M18 16h3"/></svg>
+        <span>Тренування</span>
+      </a>
+      <a href="exercises.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <span>Вправи</span>
+      </a>
+      <a href="progress.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Прогрес</span>
+      </a>
+      <a href="profile.html" class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span>Профіль</span>
+      </a>
+    </nav>
+    <div class="sidebar__bottom">
+      <button class="theme-toggle" id="themeToggle" type="button">
+        <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+        <span class="theme-toggle__label">Світла тема</span>
+      </button>
+      <div class="sidebar__user" id="sidebarUser">
+        <div class="avatar" id="sidebarAvatar">А</div>
+        <div>
+          <div class="sidebar__user-name" id="sidebarName">Завантаження...</div>
+          <div class="sidebar__user-role">Користувач</div>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" width="18"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/></svg>
+        Вийти
+      </button>
+    </div>
+  </aside>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Main content -->
+  <div class="main-wrapper">
+    <header class="topbar">
+      <button class="topbar__burger" id="burgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="topbar__title">
+        <h1>Привіт, <span id="userName">...</span>! 👋</h1>
+        <p id="dateStr"></p>
+      </div>
+      <div class="topbar__actions">
+        <div class="subscription-badge" id="subBadge">FREE</div>
+        <a href="profile.html" class="avatar topbar__avatar" id="topAvatar">А</a>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- Stats row -->
+      <section class="stats-grid">
+        <div class="stat-card stat-card--blue">
+          <div class="stat-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16M6 12h12M3 8h3M18 8h3M3 16h3M18 16h3"/></svg>
+          </div>
+          <div class="stat-card__body">
+            <span class="stat-card__value" id="statWorkouts">—</span>
+            <span class="stat-card__label">Тренувань цього місяця</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--purple">
+          <div class="stat-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <div class="stat-card__body">
+            <span class="stat-card__value" id="statVolume">—</span>
+            <span class="stat-card__label">Тоннаж за місяць (кг)</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--green">
+          <div class="stat-card__icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="stat-card__body">
+            <span class="stat-card__value" id="statStreak">—</span>
+            <span class="stat-card__label">Днів поспіль</span>
+          </div>
+        </div>
+        <div class="stat-card stat-card--orange">
+          <div class="stat-card__icon">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="stat-card__body">
+            <span class="stat-card__value" id="statPR">—</span>
+            <span class="stat-card__label">Особистих рекордів</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Two columns -->
+      <div class="dashboard-grid">
+        <!-- Programs -->
+        <section class="card">
+          <div class="card__header">
+            <h2 class="card__title">Програми тренувань</h2>
+            <a href="workout.html" class="btn btn--sm btn--ghost">Всі →</a>
+          </div>
+          <div class="plan-list" id="planList">
+            <div class="skeleton-list">
+              <div class="skeleton"></div>
+              <div class="skeleton"></div>
+              <div class="skeleton"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recent workouts -->
+        <section class="card">
+          <div class="card__header">
+            <h2 class="card__title">Останні тренування</h2>
+            <a href="progress.html" class="btn btn--sm btn--ghost">Всі →</a>
+          </div>
+          <div id="recentList">
+            <div class="skeleton-list">
+              <div class="skeleton"></div>
+              <div class="skeleton"></div>
+              <div class="skeleton"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Weekly chart -->
+      <section class="card chart-card">
+        <div class="card__header">
+          <h2 class="card__title">Активність за тиждень</h2>
+          <div class="chart-legend">
+            <span class="legend-dot legend-dot--blue"></span><span>Тоннаж (кг)</span>
+          </div>
+        </div>
+        <canvas id="weeklyChart" height="100"></canvas>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

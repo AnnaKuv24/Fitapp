@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitApp — Вхід</title>
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/auth.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+  <div class="auth-split">
+    <!-- Left panel -->
+    <div class="auth-left">
+      <div class="auth-brand">
+        <svg width="44" height="44" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="10" fill="#6366f1"/>
+          <path d="M8 16h3l2-6 3 12 2-8 2 4h4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>FitApp</span>
+      </div>
+      <div class="auth-hero">
+        <h1>Досягай<br>більшого<br><span class="gradient-text">кожен день</span></h1>
+        <p>Відстежуй тренування, аналізуй прогрес та бий особисті рекорди разом із FitApp.</p>
+        <div class="auth-features">
+          <div class="auth-feature"><span class="auth-feature__icon">🏋️</span><span>Програми тренувань</span></div>
+          <div class="auth-feature"><span class="auth-feature__icon">📊</span><span>Аналітика прогресу</span></div>
+          <div class="auth-feature"><span class="auth-feature__icon">🏆</span><span>Особисті рекорди</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="auth-right">
+      <div class="auth-box">
+        <!-- Tabs -->
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="loginTab">Вхід</button>
+          <button class="auth-tab" id="registerTab">Реєстрація</button>
+        </div>
+
+        <!-- Login form -->
+        <form class="auth-form" id="loginForm">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <div class="input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <input type="email" id="loginEmail" class="form-input" placeholder="anna@example.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Пароль</label>
+            <div class="input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+              <button type="button" class="input-eye" id="toggleLoginPw">
+                <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="loginError" class="form-error hidden"></div>
+          <button type="submit" class="btn btn--primary btn--full" id="loginBtn">
+            <span>Увійти</span>
+            <div class="btn-spinner hidden" id="loginSpinner"></div>
+          </button>
+          <p class="auth-hint">Для демо: <strong>demo@fitapp.com</strong> / <strong>demo1234</strong></p>
+        </form>
+
+        <!-- Register form -->
+        <form class="auth-form hidden" id="registerForm">
+          <div class="form-group">
+            <label class="form-label">Ім'я</label>
+            <div class="input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              <input type="text" id="regName" class="form-input" placeholder="Анна Куварзіна" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <div class="input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <input type="email" id="regEmail" class="form-input" placeholder="anna@example.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Пароль</label>
+            <div class="input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <input type="password" id="regPassword" class="form-input" placeholder="Мінімум 8 символів" required minlength="8">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ціль</label>
+            <select id="regGoal" class="form-input form-select">
+              <option value="WEIGHT_LOSS">Схуднення</option>
+              <option value="MUSCLE_GAIN" selected>Набір м'язів</option>
+              <option value="MAINTENANCE">Підтримка форми</option>
+              <option value="ENDURANCE">Витривалість</option>
+            </select>
+          </div>
+          <div id="regError" class="form-error hidden"></div>
+          <button type="submit" class="btn btn--primary btn--full" id="regBtn">
+            <span>Створити акаунт</span>
+            <div class="btn-spinner hidden" id="regSpinner"></div>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/login.js"></script>
+</body>
+</html>

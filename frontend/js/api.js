@@ -1,7 +1,12 @@
 /* api.js — FitApp REST Client with JWT auto-refresh */
 'use strict';
 
-const BASE_URL = 'http://localhost:8080/api/v1';
+// In production (GitHub Pages), update TUNNEL_URL to the active tunnel address.
+// On localhost, the local backend is used automatically.
+const TUNNEL_URL = 'https://6e6634010763f8.lhr.life/api/v1';
+const BASE_URL = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  ? 'http://localhost:8080/api/v1'
+  : TUNNEL_URL;
 
 // ── Token helpers ─────────────────────────────────────────────────────────────
 const Token = {

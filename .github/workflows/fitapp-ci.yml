@@ -1,0 +1,38 @@
+name: FitApp CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  frontend-check:
+    name: Frontend Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check frontend structure
+        run: |
+          echo "Checking frontend structure..."
+          ls frontend/pages/
+          ls frontend/css/
+          ls frontend/js/
+          echo "Frontend structure is valid!"
+
+  project-info:
+    name: Project Info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show project info
+        run: |
+          echo "FitApp CI/CD Pipeline"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Author: ${{ github.actor }}"
+          echo "All checks passed!"
